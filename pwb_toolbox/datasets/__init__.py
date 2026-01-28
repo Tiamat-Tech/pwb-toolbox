@@ -30,9 +30,17 @@ def _load_dataset_from_pwb(dataset_name: str, split: str, pwb_api_key: str):
         raise ValueError(f"No files available for dataset '{dataset_name}' and split '{split}'")
 
     print(f"Downloading {len(files)} parquet files from PWB...")
+    download_config = ds.DownloadConfig(
+        max_retries=10,
+        storage_options={
+            # aiohttp total timeout in seconds
+            "timeout": 3600,
+        },
+    )
     return ds.load_dataset(
         "parquet", 
         data_files={split: files}, 
+        download_config=download_config,
         split=split, 
         download_mode="force_redownload", 
         verification_mode="no_checks",
