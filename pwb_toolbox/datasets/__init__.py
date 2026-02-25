@@ -22,7 +22,7 @@ def _get_pwb_api_key() -> str | None:
 
 
 def _load_dataset_from_pwb(dataset_name: str, split: str, pwb_api_key: str):
-    base_url = "https://paperswithbacktest.com/api/v1/datasets"
+    base_url = "https://api.paperswithbacktest.com/v1/datasets"
     resp = requests.get(f"{base_url}/{dataset_name}", params={"pwb_api_key": pwb_api_key, "split": split}, timeout=30)
     resp.raise_for_status()
     files = resp.json().get("files", [])
