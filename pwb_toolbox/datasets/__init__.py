@@ -39,7 +39,7 @@ def _read_parquet_files(paths: list[str], desc: str) -> pd.DataFrame:
 
 
 def _load_dataset_from_pwb(dataset_name: str, split: str, pwb_api_key: str) -> pd.DataFrame:
-    base_url = "https://api.paperswithbacktest.com/v1/datasets"
+    base_url = "https://data.paperswithbacktest.com/v1/datasets"
     resp = requests.get(f"{base_url}/{dataset_name}", params={"pwb_api_key": pwb_api_key, "split": split}, timeout=30)
     resp.raise_for_status()
     files = resp.json().get("files", [])
